@@ -24,40 +24,50 @@ std::vector<std::string> split(const std::string &str, char d)
         stop = str.find_first_of(d, start);
     }
     r.push_back(str.substr(start));
-    return r;
+
+        return r;
+}
+auto converStringToInt(std::vector<std::string> vectoS){
+    std::vector<int> ints;
+    std::transform(vectoS.begin(), vectoS.end(), std::back_inserter(ints),
+        [&](std::string s) {
+            return stoi(s);
+        });
+    return ints;
 }
 int main(int argc, char const *argv[])
 {
     try
     {
-        std::vector<std::vector<std::string> > ip_pool;
+        std::vector<std::vector<int>> ip_pool;
         //std::ifstream file("C:\\Project\\homework_ip\\ip_filter.tsv");
         for(std::string line; std::getline(std::cin, line);)
         //for(std::string line; std::getline(file, line);)
         {
-            if(line == "exit")
-                break;
+            //if(line == "exit")
+            //    break;
             std::vector<std::string> v = split(line, '\t');
-            ip_pool.push_back(split(v.at(0), '.'));
+            std::cout << v.at(0) << std::endl;
+
+            ip_pool.push_back(converStringToInt(split(v.at(0), '.')));
         }
-        //std::cout << "Size=" << ip_pool.size() << std::endl;
         std::sort(ip_pool.begin(), ip_pool.end(), 
             [](auto param1, auto param2) {
-                return std::stoi(param1[0]) == std::stoi(param2[0]) ? std::stoi(param1[1]) == std::stoi(param2[1]) 
-                ? std::stoi(param1[2]) == std::stoi(param2[2]) 
-                ? std::stoi(param1[3]) > std::stoi(param2[3]) 
-                : std::stoi(param1[2]) > std::stoi(param2[2])
-                : std::stoi(param1[1]) > std::stoi(param2[1]) 
-                : std::stoi(param1[0]) > std::stoi(param2[0]);
+                return param1[0] == param2[0] ? param1[1] == param2[1]
+                ? param1[2] == param2[2]
+                ? param1[3] > param2[3]
+                : param1[2] > param2[2]
+                : param1[1] > param2[1]
+                : param1[0] > param2[0];
             });
         auto tempVec = std::unique(ip_pool.begin(), ip_pool.end());
         ip_pool.erase(tempVec,ip_pool.end());
 
         // TODO reverse lexicographically sort
         //std::sort(ip_pool.cbegin(), ip_pool.cend(), myCmp);
-        for(std::vector<std::vector<std::string> >::const_iterator ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
+        for(std::vector<std::vector<int> >::const_iterator ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip)
         {
-            for(std::vector<std::string>::const_iterator ip_part = ip->cbegin(); ip_part != ip->cend(); ++ip_part)
+            for(std::vector<int>::const_iterator ip_part = ip->cbegin(); ip_part != ip->cend(); ++ip_part)
             {
                 if (ip_part != ip->cbegin())
                 {
@@ -80,7 +90,7 @@ int main(int argc, char const *argv[])
         // ip = filter(1)
         std::for_each(ip_pool.begin(), ip_pool.end(),
             [](auto param) {
-                if(param[0] == "1") {
+                if(param[0] == 1) {
                     for(int i = 0; i < param.size(); i++) {
                         std::cout << param[i];
                         if(i != param.size() - 1)
@@ -101,7 +111,7 @@ int main(int argc, char const *argv[])
 
         std::for_each(ip_pool.begin(), ip_pool.end(),
             [](auto param) {
-                if(param[0] == "46" && param[1] == "70") {
+                if(param[0] == 46 && param[1] == 70) {
                     for(int i = 0; i < param.size(); i++) {
                         std::cout << param[i];
                         if(i != param.size() - 1)
@@ -157,7 +167,7 @@ int main(int argc, char const *argv[])
 
         std::for_each(ip_pool.begin(), ip_pool.end(),
             [](auto param) {
-                if(param[0] == "46" || param[1] == "46" || param[2] == "46" || param[3] == "46") {
+                if(param[0] == 46 || param[1] == 46 || param[2] == 46 || param[3] == 46) {
                     for(int i = 0; i < param.size(); i++) {
                         std::cout << param[i];
                         if(i != param.size() - 1)

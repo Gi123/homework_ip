@@ -74,3 +74,6 @@ build/CMakeCache.txt
 build/cmake_install.cmake
 build/ALL_BUILD.vcxproj.filters
 build/ALL_BUILD.vcxproj
+ip_filter.exe
+.vscode
+ip_filter.tsv
