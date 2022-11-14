@@ -77,3 +77,4 @@ build/ALL_BUILD.vcxproj
 ip_filter.exe
 .vscode
 ip_filter.tsv
+vc140.pdb
